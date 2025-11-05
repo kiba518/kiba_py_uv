@@ -153,6 +153,24 @@ uvicorn app.main:app --reload --port 5001
 
 ![1762247565662](C:\GitHub\Kiba-Py-Uv\kiba_py_uv\README.assets\1762247565662.png)
 
+也可以配置FastApi，他也是执行uvicorn。
+
+![1762303647026](C:\GitHub\kiba_py_uv\README.assets\1762303647026.png)
+
+执行结果
+
+![1762303672790](C:\GitHub\kiba_py_uv\README.assets\1762303672790.png)
+
 #### 整体项目结构
 
 ![1762247611775](C:\GitHub\Kiba-Py-Uv\kiba_py_uv\README.assets\1762247611775.png)
+
+#### 新项目初始化
+
+新项目初始化，执行
+
+```
+uv sync
+```
+
+就会自动下载依赖库。
