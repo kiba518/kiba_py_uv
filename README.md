@@ -18,6 +18,16 @@ uv --version
 
 看到版本号（例如 `uv 0.5.9`）说明成功。
 
+#### 安装方法二【未测试】
+
+也可以执行pipx，这样会在电脑用户的下创建一个文件夹，比如C:\Users\kiba.local\pipx\venvs\uv\。
+
+然后再path里增加该地址。
+
+```
+pipx install uv
+```
+
 #### 创建项目
 
 windows+r运行cmd，然后运行
