@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from starlette.responses import HTMLResponse
-from app.routers import tests
-
+from app.routers import tests, items
+import socket
 app = FastAPI(title="Kiba Demo API")
 app.include_router(tests.router)
-
+app.include_router(items.router)
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
@@ -16,7 +16,14 @@ async def read_root():
         </form>
     """
 
+# ✅ 自动获取本机 IP
+hostname = socket.gethostname()
+local_ip = socket.gethostbyname(hostname)
+port = 5001
 
+print("\n🚀 Server running!")
+print(f"🔹 Swagger UI: http://{local_ip}:{port}/docs")
+print(f"🔹 ReDoc:      http://{local_ip}:{port}/redoc\n")
 
 if __name__ == "__main__":
     import uvicorn
