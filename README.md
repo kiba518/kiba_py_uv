@@ -8,7 +8,7 @@ windows+r运行powershell，然后运行
 irm https://astral.sh/uv/install.ps1 | iex
 ```
 
-![1762240855732](C:\GitHub\Kiba-Py-Uv\kiba_py_uv\README.assets\1762240855732.png)
+![1762240855732](C:\GitHub\kiba_py_uv\README.assets\1762240855732.png)
 
 安装后检查：
 
@@ -36,11 +36,11 @@ windows+r运行cmd，然后运行
 uv init kiba_py_uv
 ```
 
-![1762240835390](C:\GitHub\Kiba-Py-Uv\kiba_py_uv\README.assets\1762240835390.png)
+![1762240835390](C:\GitHub\kiba_py_uv\README.assets\1762240835390.png)
 
 然后创建了项目
 
-![1762240891738](C:\GitHub\Kiba-Py-Uv\kiba_py_uv\README.assets\1762240891738.png)
+![1762240891738](C:\GitHub\kiba_py_uv\README.assets\1762240891738.png)
 
 #### 打开项目
 
@@ -63,7 +63,7 @@ uv add uvicorn
 
 然后再pyproject.toml里就会自动增加依赖项。
 
-![1762243628199](C:\GitHub\Kiba-Py-Uv\kiba_py_uv\README.assets\1762243628199.png)
+![1762243628199](C:\GitHub\kiba_py_uv\README.assets\1762243628199.png)
 
 然后再新建app/routers文件夹，然后创建文件tests.py。然后编写内容：
 
@@ -99,13 +99,25 @@ def submit(name: str = Form(...)):
 
 即便在项目里使用工具安装，依然会安装到依赖里。
 
-![1762244059631](C:\GitHub\Kiba-Py-Uv\kiba_py_uv\README.assets\1762244059631.png)
+![1762244059631](C:\GitHub\kiba_py_uv\README.assets\1762244059631.png)
+
+#### 激活环境
+
+激活环境后，下载的包就都下载到.venv里了，能确保独立环境，以免出现奇怪的bug
+
+```
+.venv\Scripts\Activate.ps1
+```
+
+其实就是执行了个脚本。
+
+![1762926430081](C:\GitHub\kiba_py_uv\README.assets\1762926430081.png)
 
 #### 修改依赖
 
 如果想删除依赖，只需要去dependencies里删除依赖即可。
 
-![1762245571012](C:\GitHub\Kiba-Py-Uv\kiba_py_uv\README.assets\1762245571012.png)
+![1762245571012](C:\GitHub\kiba_py_uv\README.assets\1762245571012.png)
 
 然后执行下面命令，更新依赖
 
@@ -153,7 +165,7 @@ uv run python -m app.main
 
 【推荐】启动命令
 
-这个命令可以替换main的指定端口。
+这个命令可以替换main的指定端口。【uvicorn只是针对使用 ASGI 服务器（异步），通过 `app` 对象启动。也就是使用fastapi开发的项目】
 
 ````
 uvicorn app.main:app --reload --port 5001
@@ -161,7 +173,7 @@ uvicorn app.main:app --reload --port 5001
 
 而且可以在调试配置里设置启动。
 
-![1762247565662](C:\GitHub\Kiba-Py-Uv\kiba_py_uv\README.assets\1762247565662.png)
+![1762247565662](C:\GitHub\kiba_py_uv\README.assets\1762247565662.png)
 
 也可以配置FastApi，他也是执行uvicorn。
 
@@ -173,7 +185,7 @@ uvicorn app.main:app --reload --port 5001
 
 #### 整体项目结构
 
-![1762247611775](C:\GitHub\Kiba-Py-Uv\kiba_py_uv\README.assets\1762247611775.png)
+![1762247611775](C:\GitHub\kiba_py_uv\README.assets\1762247611775.png)
 
 #### 新项目初始化
 
@@ -184,3 +196,80 @@ uv sync
 ```
 
 就会自动下载依赖库。
+
+
+
+## 启动ragflow的一些异常
+
+#### 指定python版本创建venv，有时候安装了新版python，但uv就是使用旧版本创建环境
+
+```
+uv sync --python C:\Users\jinxu\AppData\Local\Programs\Python\Python311\python.exe
+
+```
+
+#### 有时候有一些包，我们使用uv sync不好使，还是下载不下来。那就得手动下载到本地，然后执行
+
+```
+uv pip install C:\Users\jinxu\Downloads\pyicu-2.15.3-cp311-cp311-win_amd64.whl --force-reinstall --no-index
+```
+
+这样执行uv pip就安装到.venv里了。
+
+如果还是不行，就修改pyproject.toml,增加下面代码：
+
+```
+
+[tool.uv.sources]
+pyicu = { path = "C:/Users/jinxu/Downloads/pyicu-2.16-cp311-cp311-win_amd64.whl" }
+```
+
+修改source指向本地的包，然后在执行
+
+```
+uv clean 
+uv sync
+```
+
+#### 启动
+
+ 有时候一些开源项目，他的main不在最外面。那么启动就要用这种模式
+
+```
+python -m api.ragflow_server
+```
+
+`-m` 会把当前目录加入 `sys.path`。
+
+Python 启动时，`sys.path` 会包含：
+
+1. **当前脚本所在目录**（或者执行 `-m` 时的模块所在目录）。
+2. **环境变量 PYTHONPATH** 指定的路径。
+3. **标准库路径**，比如 `C:\Python310\Lib`。
+4. **已安装的 site-packages 目录**。
+
+如下图，这样启动就会把common文件夹载入。
+
+![1762927266345](C:\GitHub\kiba_py_uv\README.assets\1762927266345.png)
+
+运行时，会下载hugface，也就是说，运行时要挂vpn。
+
+运行时还缺nltk的包，找文件添加下面代码，添加到ragflow_server.py可能更好。
+
+```
+import nltk
+nltk.download('punkt_tab')
+nltk.download('wordnet')
+```
+
+![1762929327197](C:\GitHub\kiba_py_uv\README.assets\1762929327197.png)
+
+启动成功后，删除这个代码即可。
+
+出现logo就是启动成功了。
+
+![1762929434273](C:\GitHub\kiba_py_uv\README.assets\1762929434273.png)
+
+ragflow的依赖环境还是要用dockerdesktop安装的。启动api要把docker里的api停了，不然端口冲突。
+
+![1762929472978](C:\GitHub\kiba_py_uv\README.assets\1762929472978.png)
