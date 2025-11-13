@@ -273,3 +273,18 @@ nltk.download('wordnet')
 ragflow的依赖环境还是要用dockerdesktop安装的。启动api要把docker里的api停了，不然端口冲突。
 
 ![1762929472978](C:\GitHub\kiba_py_uv\README.assets\1762929472978.png)
+
+【使用python配置启动ragflow】这样就可以调试了
+
+![1763004532556](C:\GitHub\kiba_py_uv\README.assets\1763004532556.png)
+
+## 代码编写介绍
+在文件夹下，增加init.py文件，能把该文件夹变成模块。
+
+init.py里什么都不写也可以。
+
+![1763014450786](C:\GitHub\kiba_py_uv\README.assets\1763014450786.png)
+
+变成模块后，我们就可以选择模块启动方式了。
+
+ ![1763014558757](C:\GitHub\kiba_py_uv\README.assets\1763014558757.png)
