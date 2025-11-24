@@ -175,7 +175,7 @@ uvicorn app.main:app --reload --port 5001
 
 ![1762247565662](C:\GitHub\kiba_py_uv\README.assets\1762247565662.png)
 
-也可以配置FastApi，他也是执行uvicorn。
+也可以配置FastApi，他也是执行uvicorn。【注意 python 解释器，一定要选择自己的.venv，不然加载不了我们之前同步的轮子】
 
 ![1762303647026](C:\GitHub\kiba_py_uv\README.assets\1762303647026.png)
 
