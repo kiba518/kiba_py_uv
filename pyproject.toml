@@ -9,5 +9,7 @@ dependencies = [
     "python-multipart>=0.0.20",
     "uvicorn>=0.38.0",
     "sqlalchemy",
-    "pymysql"
+    "pymysql",
+    "httpx>=0.28.1",
+    "fastmcp>=2.13.1",
 ]
