@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, Request, Form, Query
 
-router = APIRouter(prefix="/api_test", tags=["get/post测试"])
+router_api_test = APIRouter(prefix="/api_test", tags=["get/post测试"])
 
 
-@router.post("/{webhook}")
+@router_api_test.post("/{webhook}")
 async def handle_webhook(webhook: str, request: Request):
     data = await request.json()  # ✅ 获取 JSON 请求体
     print(f"Webhook path: {webhook}")
@@ -12,7 +12,7 @@ async def handle_webhook(webhook: str, request: Request):
 
 
 # 🔍 处理 GET 请求，获取 query 参数
-@router.get("/search")
+@router_api_test.get("/search")
 def search(
         q: str = Query(default="", description="搜索关键词"),
         page: int = Query(default=1, description="页码")
@@ -21,6 +21,6 @@ def search(
 
 
 # 📩 处理 POST 请求，接收表单数据
-@router.post("/submit")
+@router_api_test.post("/submit")
 def submit(name: str = Form(...)):
     return {"message": f"Hello, {name}! Your form has been submitted."}

@@ -1,10 +1,19 @@
 from fastapi import FastAPI
 from starlette.responses import HTMLResponse
-from app.routers import api_test, items
+from app.routers  import api_router
+from starlette.routing import Mount
+from app.routers.mcp.sse import sse
 import socket
-app = FastAPI(title="Kiba Demo API")
-app.include_router(api_test.router)
-app.include_router(items.router)
+
+app = FastAPI(
+    title="Kiba Demo API",
+    description="A demonstration of Server-Sent Events with Model Context and API Invoke "
+    "Protocol integration",
+    version="0.1.0",
+)
+
+app.router.routes.append(Mount("/messages", app=sse.handle_post_message)) # 这个得单独挂，在router里挂载，url就对不上
+app.include_router(api_router)
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
