@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Request, Form, Query
 
-router = APIRouter(prefix="/items", tags=["items"])
+router = APIRouter(prefix="/api_test", tags=["get/post测试"])
 
 
 @router.post("/{webhook}")
