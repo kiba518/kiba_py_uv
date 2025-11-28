@@ -288,3 +288,11 @@ init.py里什么都不写也可以。
 变成模块后，我们就可以选择模块启动方式了。
 
  ![1763014558757](C:\GitHub\kiba_py_uv\README.assets\1763014558757.png)
+
+
+## requirements
+requirements是使用uv命令导出的，因为把python代码在docker里运行的时候，需要安装依赖，docker容器有pip，但没有uv。
+因为uv的安装比较费劲，所以直接用uv命令导出requirements，这样就在制造dockerfile的时候，可以直接pip requirements安装依赖了。
+uv export --format=requirements.txt --output-file=requirements.txt
+
+![1764309010259](C:\GitHub\kiba_py_uv\README.assets\1764309010259.png)

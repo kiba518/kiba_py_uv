@@ -1,7 +1,7 @@
 
 from mcp.server.sse import SseServerTransport
 from starlette.routing import Mount
-from .tool_weather import mcp
+from . import mcp
 from fastapi import APIRouter, Depends, Request, Form, Query
 
 
